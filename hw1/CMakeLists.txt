@@ -49,17 +49,42 @@ set(ALL_SOURCE_FILES
         src/main.cpp
 )
 
+# set(ALL_LIBRARIES
+#         dl
+#         GLEW::GLEW
+#         glfw
+#         OpenGL::GL
+#         OpenGL::OpenGL
+#         OpenGL::GLU
+#         OpenGL::GLX
+#         OpenGL::EGL
+#         pthread
+# )
+
 set(ALL_LIBRARIES
-        dl
         GLEW::GLEW
         glfw
-        OpenGL::GL
-        OpenGL::OpenGL
-        OpenGL::GLU
-        OpenGL::GLX
-        OpenGL::EGL
-        pthread
 )
+
+# OpenGL target differs across platforms/CMake versions
+if (TARGET OpenGL::OpenGL)
+    list(APPEND ALL_LIBRARIES OpenGL::OpenGL)
+elseif (TARGET OpenGL::GL)
+    list(APPEND ALL_LIBRARIES OpenGL::GL)
+else()
+    list(APPEND ALL_LIBRARIES ${OPENGL_LIBRARIES})
+endif()
+
+# Platform-specific libs
+if (APPLE)
+    # On macOS you generally do NOT link dl/pthread/GLX/EGL/GLU
+    # OpenGL is provided via framework and handled by OpenGL::*
+elseif (UNIX)
+    list(APPEND ALL_LIBRARIES dl pthread)
+    # If your Linux setup needs these, you can add them back:
+    # list(APPEND ALL_LIBRARIES OpenGL::GLU OpenGL::GLX OpenGL::EGL)
+endif()
+
 
 # all definitions and options
 

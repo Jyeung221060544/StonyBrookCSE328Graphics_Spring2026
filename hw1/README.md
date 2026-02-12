@@ -1,10 +1,10 @@
 # HW1
 
-Your Name (Please replace with your name.)
+Jason Yeung
 
-Your SBU ID (Please replace with your 9-digit SBU ID.)
+115780329
 
-Your Email (Please replace with your email.)
+jason.yeung.1@stonybrook.edu
 
 ## Overview
 

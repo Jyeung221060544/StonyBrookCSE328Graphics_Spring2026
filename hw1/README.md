@@ -10,6 +10,10 @@ jason.yeung.1@stonybrook.edu
 
 - Implemented a sample modern OpenGL program with GLFW as the windowing toolkit. 
 - Implemented a naive Bresenham line drawing routine without edge-case handling. 
+- Implemented quadratic and cubic polynomial curve rendering using user-specified coefficients read from a configuration file.
+- Implemented superquadric (superellipse) rendering using parametric form.
+- Curves are rendered in world coordinate system centered at the viewport.
+- Successive sampled points are connected using a generalized Bresenham line algorithm to ensure continuity.
 
 ## Notes
 
@@ -54,22 +58,22 @@ Features or parts left unchecked here won't be graded!
 
 - [x] 1. Line Segment (Fully Implemented in This Template)
   - [x] 0 <= m <= 1
-- [ ] 2. Line Segment
-  - [ ] Slope m < -1
-  - [ ] -1 <= m < 0
-  - [ ] 1 < m
-  - [ ] Vertical
-- [ ] 3. Ploy-line & Polygon
-  - [ ] Poly-line
-  - [ ] Polygon
-- [ ] 4. Circle & Ellipse
-  - [ ] Circle
-  - [ ] Ellipse
-- [ ] 5. Polynomial Curve (BONUS PART)
-  - [ ] Line
-  - [ ] Quadratic Curve
-  - [ ] Cubic Curve
-  - [ ] Super-Quadrics
+- [x] 2. Line Segment
+  - [x] Slope m < -1
+  - [x] -1 <= m < 0
+  - [x] 1 < m
+  - [x] Vertical
+- [x] 3. Ploy-line & Polygon
+  - [x] Poly-line
+  - [x] Polygon
+- [x] 4. Circle & Ellipse
+  - [x] Circle
+  - [x] Ellipse
+- [x] 5. Polynomial Curve (BONUS PART)
+  - [x] Line
+  - [x] Quadratic Curve
+  - [x] Cubic Curve
+  - [x] Super-Quadrics
 
 ## Usage
 
@@ -94,3 +98,76 @@ Note that the working directory must be **exactly** root of your project
 
 Please include any other stuff you would like to mention in this section.
 E.g., format of your config file, and your suggestions on possible combinations of cubic curve parameters. 
+
+## Appendix
+
+### Configuration File Format (`etc/config.txt`)
+
+The program reads exactly **one line** from:
+etc/config.txt
+
+The format is: <type> <parameters>
+
+The first integer specifies the curve type:
+
+- `1` → Cubic Curve  
+- `2` → Quadratic Curve  
+- `3` → Superquadric  
+
+Only one curve is rendered per execution (the program reads one line from the config file).
+
+---
+
+### 1. Cubic Curve (type = 1)
+Format: 1 a3 a2 a1 a0
+Represents: y(x) = a3 x^3 + a2 x^2 + a1 x + a0
+Example: 1 0.00002 0 0 -50
+Produces a smooth S-shaped cubic curve.
+
+
+---
+
+### 2. Quadratic Curve (type = 2)
+Format: 2 a2 a1 a0
+Represents: y(x) = a2 x^2 + a1 x + a0
+Example: 2 0.002 0 -50
+Produces an upward-opening parabola.
+
+
+---
+### 3. Superquadric (Superellipse) (type = 3)
+Format: 3 a b n
+Parametric form used in implementation: 
+- `x(t)` = a * sgn(cos t) * |cos t|^(2/n)
+- `y(t)` = b * sgn(sin t) * |sin t|^(2/n)
+
+Where:
+- `a` = horizontal radius  
+- `b` = vertical radius  
+- `n` = exponent controlling the shape  
+
+Example: 3 250 180 2
+Produces a standard ellipse.
+
+Rounded rectangle: 3 300 180 8
+
+Diamond shape: 3 250 250 1
+
+Pinched / star-like shape: 3 260 180 0.7
+
+---
+
+### Coordinate System
+
+- The origin (0, 0) is at the center of the viewport.
+- The positive x-axis points to the right.
+- The positive y-axis points upward.
+- World-space coordinates are converted to screen-space internally using `worldToScreen`.
+
+## Implementation Notes
+
+- Polynomial curves are sampled across the world x-range of [-500, 499].
+- Successive sample points are connected using Bresenham line drawing in world space.
+- Superquadrics are generated using 4000 parametric samples and connected via Bresenham for smooth rasterization.
+- All rendering is clipped to the viewport.
+

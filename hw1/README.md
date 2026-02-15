@@ -132,14 +132,18 @@ Produces a smooth S-shaped cubic curve.
 
 ### 2. Quadratic Curve (type = 2)
 Format: 2 a2 a1 a0
+
 Represents: y(x) = a2 x^2 + a1 x + a0
+
 Example: 2 0.002 0 -50
+
 Produces an upward-opening parabola.
 
 
 ---
 ### 3. Superquadric (Superellipse) (type = 3)
 Format: 3 a b n
+
 Parametric form used in implementation: 
 - `x(t)` = a * sgn(cos t) * |cos t|^(2/n)
 - `y(t)` = b * sgn(sin t) * |sin t|^(2/n)
@@ -150,6 +154,7 @@ Where:
 - `n` = exponent controlling the shape  
 
 Example: 3 250 180 2
+
 Produces a standard ellipse.
 
 Rounded rectangle: 3 300 180 8

@@ -120,8 +120,11 @@ Only one curve is rendered per execution (the program reads one line from the co
 
 ### 1. Cubic Curve (type = 1)
 Format: 1 a3 a2 a1 a0
+
 Represents: y(x) = a3 x^3 + a2 x^2 + a1 x + a0
+
 Example: 1 0.00002 0 0 -50
+
 Produces a smooth S-shaped cubic curve.
 
 

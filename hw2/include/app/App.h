@@ -11,7 +11,33 @@
 
 class Shader;
 class Renderable;
+class Circle;
 
+enum class Mode
+{
+    NONE,
+    BALL,
+    FACE
+};
+
+struct Ball
+{
+    glm::vec2 position {0.0f, 0.0f};
+    glm::vec2 velocity {0.0f, 0.0f};
+    float radius {0.0f};
+    std::unique_ptr<Circle> shape {nullptr};
+};
+
+struct Face
+{
+    glm::vec2 position {0.0f, 0.0f};
+    glm::vec2 velocity {0.0f, 0.0f};
+    float radius {0.0f};
+    int generation {1};
+    float rotationAngle {0.0f};
+    float angularVelocity {1.0f};
+    float angerTimeRemaining {0.0f};
+};
 
 class App : private Window
 {
@@ -39,6 +65,19 @@ private:
     App();
 
     void render();
+    void createBallAt(const glm::vec2 & position);
+    bool canCreateBallAt(const glm::vec2 & position, float radius) const;
+    void updateBalls();
+    void resolveBallCollisions();
+    void createFaceAt(const glm::vec2 & position);
+    void renderFace(const Face & face);
+    bool canCreateFaceAt(const glm::vec2 & position, float radius) const;
+    void updateFaces();
+    void resolveFaceCollisions();
+    void drawCircle(float x, float y, float r, const glm::vec3 & color);
+    void drawMouth(float x1, float y1, float x2, float y2, float x3, float y3,
+               const glm::vec3 & color);
+    void angerFacesOverlapping(const glm::vec2 & position, float radius);
 
     // Shaders.
     // In principle, a shader could be reused across multiple objects.
@@ -48,6 +87,10 @@ private:
 
     // Objects to render.
     std::vector<std::unique_ptr<Renderable>> shapes;
+
+    Mode currentMode {Mode::NONE};
+    std::vector<Ball> balls;
+    std::vector<Face> faces;
 
     // Object attributes affected by GUI.
     bool animationEnabled {true};

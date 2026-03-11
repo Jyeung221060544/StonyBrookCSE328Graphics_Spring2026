@@ -1,15 +1,25 @@
 # HW2
 
-Your Name (Please replace with your name.)
+Jason Yeung
 
-Your SBU ID (Please replace with your 9-digit SBU ID.)
+115780329
 
-Your Email (Please replace with your email.)
+jason.yeung.1@stonybrook.edu
 
 ## Overview
 
-- Implemented a sample modern OpenGL program with GLFW as the windowing toolkit. 
-- Implemented some basic geometries, including lines, triangles, and circles. Circles are implemented with tessellation shaders. 
+This program implements an interactive OpenGL simulation using GLFW.  
+Users can create bouncing balls or animated faces inside the window using mouse clicks.
+
+The program supports:
+
+- Ball mode with configurable radius and velocity
+- Face mode with animated facial features
+- Collision detection between objects
+- Recursive face generation after collisions
+- Bonus visual effects such as rotating faces and angry face reactions
+
+Configuration values such as radius and velocity are dynamically read from `etc/config.txt`.
 
 ## Notes
 
@@ -65,33 +75,56 @@ cd ..
 Check all features implemented with "x" in "[ ]"s. 
 Features or parts left unchecked here won't be graded! 
 
-- [ ] 1. Bouncing Ball
-  - [ ] Creation
-  - [ ] Dynamically reading config file
-  - [ ] Movement
-  - [ ] Collison detection
-- [ ] 2. 4+ Bouncing Balls
-- [ ] 3. Bouncing Face
-  - [ ] Creation
-  - [ ] Dynamically reading config file
-  - [ ] Movement
-  - [ ] Collison detection
-  - [ ] Generation Evolution
-- [ ] 4. More Bouncing Faces
-  - [ ] 8+ bouncing faces
-  - [ ] 16+ bonucing faces
-- [ ] 5. BONUS
-  - [ ] Please specify
+- [x] 1. Bouncing Ball
+  - [x] Creation
+  - [x] Dynamically reading config file
+  - [x] Movement
+  - [x] Collison detection
+- [x] 2. 4+ Bouncing Balls
+- [x] 3. Bouncing Face
+  - [x] Creation
+  - [x] Dynamically reading config file
+  - [x] Movement
+  - [x] Collison detection
+  - [x] Generation Evolution
+- [x] 4. More Bouncing Faces
+  - [x] 8+ bouncing faces
+  - [x] 16+ bonucing faces
+- [x] 5. BONUS
+  - [x] Face rotation
+  - [x] Eye orbit animation
+  - [x] Recursive inner-face rendering for higher generations
+  - [x] Angry face reaction when overlapping face creation is attempted
+  - [x] Color transition (face turns red and fades back over time)
 
 ## Usage
 
-- If you have implemented extra functionalities not mentioned in the manual,
-  you may specify them here.
-- If your program failed to obey the required mouse/keyboard gestures,
-  you may also specify your own setting here.
-  In this case, penalties may apply.
+Keyboard controls:
+
+- **1** → Switch to BALL mode
+- **3** → Switch to FACE mode
+- **A** → Toggle animation on/off
+
+Mouse controls:
+
+- **Left click** → Create a ball or face depending on the current mode
+
+Behavior:
+
+- Balls bounce off the window boundaries and collide with each other.
+- Faces bounce off boundaries and collide with other faces.
+- Face collisions increase the generation number, causing recursive faces to appear inside the eyes.
+- If a face creation overlaps an existing face, the creation is rejected and the existing face becomes "angry" (turns red temporarily).
 
 ## Appendix
 
-Please include any other stuff you would like to mention in this section.
-E.g., format of your config file, and your suggestions on possible combinations of cubic curve parameters. 
+### Config File Format
+
+The file `etc/config.txt` contains three values: radius velocity_x velocity_y
+Example: 50 120 80
+
+Meaning:
+- radius = 50 pixels
+- velocity = (120, 80)
+
+These values are dynamically loaded each time an object is created.

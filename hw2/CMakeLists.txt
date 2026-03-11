@@ -52,15 +52,9 @@ set(ALL_SOURCE_FILES
 )
 
 set(ALL_LIBRARIES
-        dl
         GLEW::GLEW
         glfw
-        OpenGL::GL
-        OpenGL::OpenGL
-        OpenGL::GLU
-        OpenGL::GLX
-        OpenGL::EGL
-        pthread
+        ${OPENGL_LIBRARIES}
 )
 
 # all definitions and options

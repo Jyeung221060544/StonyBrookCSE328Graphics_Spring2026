@@ -121,6 +121,7 @@ Behavior:
 ### Config File Format
 
 The file `etc/config.txt` contains three values: radius velocity_x velocity_y
+
 Example: 50 120 80
 
 Meaning:

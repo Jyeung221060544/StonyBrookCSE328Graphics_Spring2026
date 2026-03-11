@@ -51,11 +51,21 @@ set(ALL_SOURCE_FILES
         src/main.cpp
 )
 
-set(ALL_LIBRARIES
-        GLEW::GLEW
-        glfw
-        ${OPENGL_LIBRARIES}
-)
+if(APPLE)
+    set(ALL_LIBRARIES
+            GLEW::GLEW
+            glfw
+            ${OPENGL_LIBRARIES}
+    )
+else()
+    set(ALL_LIBRARIES
+            dl
+            GLEW::GLEW
+            glfw
+            ${OPENGL_LIBRARIES}
+            pthread
+    )
+endif()
 
 # all definitions and options
 

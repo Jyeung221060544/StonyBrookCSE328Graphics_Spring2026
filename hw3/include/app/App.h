@@ -36,9 +36,29 @@ private:
     static constexpr int kWindowHeight {1000};
 
 private:
+    enum class SceneMode
+    {
+        P1 = 1,
+        P2,
+        P3,
+        P4,
+        P5,
+        P6,
+        P7
+    };
+
+    enum class DisplayMode
+    {
+        Wireframe,
+        Flat,
+        Smooth
+    };
+
+private:
     App();
 
     void initializeShadersAndObjects();
+    void rebuildScene();
 
     void render();
 
@@ -46,12 +66,31 @@ private:
     std::unique_ptr<Shader> pLineShader;
     std::unique_ptr<Shader> pMeshShader;
     std::unique_ptr<Shader> pSphereShader;
+    std::unique_ptr<Shader> pCylinderShader;
+    std::unique_ptr<Shader> pConeShader;
+    std::unique_ptr<Shader> pTorusShader;
+    std::unique_ptr<Shader> pSuperquadricShader;
 
     // Objects to render.
     std::vector<std::unique_ptr<Renderable>> shapes;
 
+    // Scene / display state
+    SceneMode currentScene {SceneMode::P1};
+    DisplayMode currentDisplayMode {DisplayMode::Smooth};
+    bool showAxes {true};
+    int subdivisionLevel {0};
+
     // Viewing
     Camera camera {{0.0f, 0.0f, 10.0f}};
+
+    bool flightActive {false};
+    bool horizontalLoop {true};
+    float flightAngle {0.0f};
+
+    glm::vec3 savedCameraPosition {0.0f, 0.0f, 0.0f};
+    glm::vec3 savedCameraFront {0.0f, 0.0f, -1.0f};
+    glm::vec3 savedCameraUp {0.0f, 1.0f, 0.0f};
+    
     glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 projection = glm::mat4(1.0f);
 

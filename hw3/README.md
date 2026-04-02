@@ -1,10 +1,10 @@
 # HW3
 
-Your Name (Please replace with your name.)
+Jason Yeung
 
-Your SBU ID (Please replace with your 9-digit SBU ID.)
+115780329
 
-Your Email (Please replace with your email.)
+jason.yeung.1@stonybrook.edu
 
 ## Overview
 
@@ -64,9 +64,57 @@ cd ..
 ./build/hw3
 ```
 
-## Usage
+## Controls
 
-- Press `W`/`S`/`A`/`D`/`UP`/`DOWN`, or drag/scroll the mouse to adjust the camera. 
+### Scene Switching
+
+* `1` → P1 Polyhedra
+* `2` → P2 Icosahedron
+* `3` → P3 Ellipsoid
+* `4` → P4 Quadrics (sphere, cylinder, cone)
+* `5` → P5 Torus
+* `6` → P6 Superquadric + Dodecahedron
+* `7` → P7 City + Flight Simulation
+
+### Display Modes
+
+* `F1` → Wireframe
+* `F2` → Flat shading
+* `F4` → Smooth shading
+
+### Camera
+
+* `W A S D` → Move
+* `UP / DOWN` → Vertical movement
+* Mouse drag → Look around
+* Scroll → Zoom
+
+### Other Controls
+
+* `X` → Toggle axes
+* `Shift + =` → Subdivide (P2, P3, P5, P6)
+* `H` → Horizontal flight loop (P7)
+* `V` → Vertical flight loop (P7)
+
+## Configuration
+
+Superquadric parameters are loaded from:
+
+```bash
+etc/config.txt
+```
+
+Format:
+
+```txt
+a b e1 e2
+```
+
+Example:
+
+```txt
+1.0 1.0 0.5 0.5
+```
 
 ## Notes
 
@@ -84,63 +132,63 @@ Only features or parts checked here would be graded!
   - [x] Camera Functionalities
     - [x] Show/hide x, y, z Axes
     - [x] `W`/`S`/`A`/`D`/`UP`/`DOWN` Functionalities
-- [ ] **P1: Simple Polyhedral Objects**
-  - [ ] Tetrahedron
-    - [ ] Wireframe
-    - [ ] Flat
-    - [ ] Smooth
-  - [ ] Cube
-    - [ ] Wireframe
-    - [ ] Flat
-    - [ ] Smooth
-  - [ ] Octahedron
-    - [ ] Wireframe
-    - [ ] Flat
-    - [ ] Smooth
-- [ ] **P2: Icosahedron**
-  - [ ] Wireframe
-  - [ ] Flat
-  - [ ] Smooth
-  - [ ] Subdivision
-- [ ] **P3: Ellipsoid**
-  - [ ] Wireframe
-  - [ ] Flat
-  - [ ] Smooth
-  - [ ] Subdivision
-- [ ] **P4: Tessellation**
-  - [ ] Sphere
-    - [ ] Wireframe
-    - [ ] Flat/Smooth
-  - [ ] Cylinder
-    - [ ] Wireframe
-    - [ ] Flat/Smooth
-  - [ ] Cone
-    - [ ] Wireframe
-    - [ ] Flat/Smooth
-- [ ] **P5: Torus**
-  - [ ] Wireframe
-  - [ ] Flat
-  - [ ] Smooth
-  - [ ] Subdivision
-- [ ] **P6: Super-quqdrics And Dodecahedron**
-  - [ ] Super-quqdrics
-    - [ ] Wireframe
-    - [ ] Flat/Smooth
-    - [ ] Dynamically Load Parameters
-  - [ ] Dodecahedron
-    - [ ] Wireframe
-    - [ ] Flat
-    - [ ] Smooth
-    - [ ] Subdivision
-- [ ] **P7: Flight Simulation**
-  - [ ] City Scene Assembly (Has 8-12 urban structures)
-  - [ ] Display
-    - [ ] Wireframe
-    - [ ] Flat
-    - [ ] Smooth
-  - [ ] Loops
-    - [ ] Horizontal Loop
-    - [ ] Vertical Loop
+- [x] **P1: Simple Polyhedral Objects**
+  - [x] Tetrahedron
+    - [x] Wireframe
+    - [x] Flat
+    - [x] Smooth
+  - [x] Cube
+    - [x] Wireframe
+    - [x] Flat
+    - [x] Smooth
+  - [x] Octahedron
+    - [x] Wireframe
+    - [x] Flat
+    - [x] Smooth
+- [x] **P2: Icosahedron**
+  - [x] Wireframe
+  - [x] Flat
+  - [x] Smooth
+  - [x] Subdivision
+- [x] **P3: Ellipsoid**
+  - [x] Wireframe
+  - [x] Flat
+  - [x] Smooth
+  - [x] Subdivision
+- [x] **P4: Tessellation**
+  - [x] Sphere
+    - [x] Wireframe
+    - [x] Flat/Smooth
+  - [x] Cylinder
+    - [x] Wireframe
+    - [x] Flat/Smooth
+  - [x] Cone
+    - [x] Wireframe
+    - [x] Flat/Smooth
+- [x] **P5: Torus**
+  - [x] Wireframe
+  - [x] Flat
+  - [x] Smooth
+  - [x] Subdivision
+- [x] **P6: Super-quqdrics And Dodecahedron**
+  - [x] Super-quqdrics
+    - [x] Wireframe
+    - [x] Flat/Smooth
+    - [x] Dynamically Load Parameters
+  - [x] Dodecahedron
+    - [x] Wireframe
+    - [x] Flat
+    - [x] Smooth
+    - [x] Subdivision
+- [x] **P7: Flight Simulation**
+  - [x] City Scene Assembly (Has 8-12 urban structures)
+  - [x] Display
+    - [x] Wireframe
+    - [x] Flat
+    - [x] Smooth
+  - [x] Loops
+    - [x] Horizontal Loop
+    - [x] Vertical Loop
 - [ ] **P8: Bonus**
   - [ ] Normal Display Mode
   - [ ] Other (Please Specify)
@@ -149,3 +197,20 @@ Only features or parts checked here would be graded!
 
 - If you have implemented extra functionalities not mentioned in the manual, you may specify them here.
 - If your program failed to obey the required mouse/keyboard gestures, you may also specify your own setting here. In this case, penalties may apply.
+
+
+## Additional Notes
+
+* Subdivision for polyhedra increases triangle density but preserves shape
+* Tessellation shaders provide smooth parametric surfaces
+* Flat and smooth shading may appear identical for tessellated objects (expected behavior)
+
+## Summary
+
+This project successfully implements:
+
+* Full 3D rendering pipeline in modern OpenGL
+* Multiple geometric modeling techniques
+* Interactive camera and scene control
+* Advanced shader-based surface generation
+* A complete animated 3D environment

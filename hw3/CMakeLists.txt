@@ -33,12 +33,20 @@ set(SHAPE
         include/shape/Renderable.h
         include/shape/Sphere.h
         include/shape/Tetrahedron.h
+        include/shape/Cylinder.h
+        include/shape/Cone.h
+        include/shape/Torus.h
+        include/shape/Superquadric.h
+        src/shape/Superquadric.cpp
+        src/shape/Torus.cpp
+        src/shape/Cylinder.cpp
+        src/shape/Cone.cpp
         src/shape/GLShape.cpp
         src/shape/Line.cpp
         src/shape/Mesh.cpp
         src/shape/Renderable.cpp
         src/shape/Sphere.cpp
-        src/shape/Tetrahedron.cpp
+        src/shape/Tetrahedron.cpp 
 )
 
 set(ALL_INCLUDE_DIRS
@@ -56,7 +64,15 @@ set(ALL_SOURCE_FILES
         src/main.cpp
 )
 
-set(ALL_LIBRARIES
+
+if(APPLE)
+    set(ALL_LIBRARIES
+            GLEW::GLEW
+            glfw
+            OpenGL::GL
+    )
+elseif(UNIX)
+    set(ALL_LIBRARIES
         dl
         GLEW::GLEW
         glfw
@@ -66,7 +82,8 @@ set(ALL_LIBRARIES
         OpenGL::GLX
         OpenGL::EGL
         pthread
-)
+    )
+endif()
 
 # all definitions and options
 
